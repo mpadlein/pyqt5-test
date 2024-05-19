@@ -13,10 +13,14 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 
+# constants
+ROW_COUNT = 200
+COL_COUNT = 3
+
 # create fake data: 100 rows, 3 columns
 fake_data: list[list[int]] = []
-for _ in range(100):
-    fake_data.append([random.randint(0, 100) for _ in range(3)])
+for _ in range(ROW_COUNT):
+    fake_data.append([random.randint(0, 100) for _ in range(COL_COUNT)])
 
 
 class Window(QWidget):
@@ -27,18 +31,18 @@ class Window(QWidget):
         self.setLayout(layout)
 
         self.table = QTableWidget(self)
-        self.table.setRowCount(len(fake_data))
-        self.table.setColumnCount(3)
+        self.table.setRowCount(ROW_COUNT)
+        self.table.setColumnCount(COL_COUNT)
 
         self.table.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
 
-        btn = QPushButton("Load data (main thread)")
-        btn.clicked.connect(self.load_data)
+        btn1 = QPushButton("Load data (main thread)")
+        btn1.clicked.connect(self.load_data)
 
         btn2 = QPushButton("Load data (create thread)")
         btn2.clicked.connect(self.load_data_thread)
 
-        layout.addWidget(btn)
+        layout.addWidget(btn1)
         layout.addWidget(btn2)
         layout.addWidget(self.table)
 
